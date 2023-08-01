@@ -2,28 +2,57 @@ require './Grid.rb'
 require './Mino.rb'
 
 class Field
-    
-    def initialize()
+    attr_reader :mino
+
+    def initialize
+        @mino = Mino.new(0)
         @grid = Array.new(22){ Array.new(12) }
-        for i in 0..21 do
-            for j in 0..11 do
-                @grid[i][j] = Grid.new(0)
-                if i == 0 || i == 21 || j == 0 || j == 11
-                    @grid[i][j] = Grid.new(94)
+        for row in 0..21 do
+            for col in 0..11 do
+                if row == 0 || row == 21 || col == 0 || col == 11
+                    @grid[row][col] = Grid.new(true)
                 else
-                    @grid[i][j] = Grid.new(0)
+                    @grid[row][col] = Grid.new(false)
                 end
             end
         end
-        @mino = Mino.new
     end
 
-    def getColor(i, j)
-        @grid[i][j].getColor
+    def getColor(row, col)
+        if @mino.isThere(row, col)
+            @mino.color
+        else
+            @grid[row][col].color
+        end
     end
 
-    def getMino(i, j)
-        @mino
+    def moveLeft
+        mino.posCol -= 1
+        if mino.isCollision(@grid)
+            mino.posCol += 1
+        end
     end
 
+    def moveRight
+        mino.posCol += 1
+        if mino.isCollision(@grid)
+            mino.posCol -= 1
+        end
+    end
+
+    def moveDown
+        mino.posRow += 1
+        if mino.isCollision(@grid)
+            mino.posRow -= 1
+            setBlock
+        end
+    end
+
+    def setBlock
+        blocksPos = mino.getBlocksPos
+        blocksPos.each do |blockPos|
+            @grid[blockPos[0]][blockPos[1]].setBlock(mino.color)
+        end
+        @mino = Mino.new(0)
+    end
 end

@@ -1,17 +1,25 @@
 class Grid
-    def initialize(color)
-        @color = color
+    attr_accessor :color
+    attr_reader :isWall
+
+    def initialize(isWall)
+        @isWall = isWall
+        if isWall 
+            @color = 94
+        else
+            @color = 0
+        end
     end
-    
-    def setColor(color)
+
+    def setBlock(color)
         @color = color
     end
 
-    def getColor
-        @color
+    def removeBlock()
+        @color = 0
     end
 
     def hasBlock
-        @color != 0
+        @isWall || @color != 0
     end
 end

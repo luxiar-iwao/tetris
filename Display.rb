@@ -16,6 +16,7 @@ class Display
     end
 
     def draw(field)
+        Curses.erase
         Curses.attron(Curses.color_pair(15))
         Curses.setpos(1, 0)
         Curses.addstr("next")
