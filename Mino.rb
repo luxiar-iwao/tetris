@@ -19,29 +19,30 @@ class Mino
             @color = 3
             case @rotate
             when 0
-            @blocks[0] = 1, 1
-            @blocks[1] = 2, 1
-            @blocks[2] = 1, 2
-            @blocks[3] = 2, 2
+            @blocks[0] = [0, 0, 0, 0]
+            @blocks[1] = [0, 1, 1, 0]
+            @blocks[2] = [0, 1, 1, 0]
+            @blocks[3] = [0, 0, 0, 0]
             end
         end
     end
 
     def isThere(row, col)
-        @blocks.each do |block|
-            if block[0] == row - @posRow && block[1] == col - @posCol
-                return true
-            end
+        tempRow = row - @posRow 
+        tempCol = col - @posCol
+        if tempRow >= 0 && tempRow <= 3 && tempCol >= 0 && tempCol <= 3
+            return @blocks[tempRow][tempCol] != 0
+        else
+            return false
         end
-        return false
     end
 
     def isCollision(grid)
-        @blocks.each do |block|
-            row = block[0] + @posRow
-            col = block[1] + @posCol
-            if grid[row][col].hasBlock
-                return true
+        for row in 0..3 do
+            for col in 0..3 do
+                if  @blocks[row][col] != 0 && grid[row + @posRow][col + @posCol].hasBlock
+                    return true
+                end
             end
         end
         return false
@@ -49,8 +50,14 @@ class Mino
 
     def getBlocksPos
         blocksPos = Array.new(4)
-        @blocks.each_with_index do |block, i|
-            blocksPos[i] = [block[0] + @posRow, block[1] + @posCol]
+        count = 0
+        for row in 0..3 do
+            for col in 0..3 do
+                if @blocks[row][col] != 0
+                    blocksPos[count] =[row + @posRow, col + @posCol]
+                    count += 1
+                end
+            end
         end
         return blocksPos
     end

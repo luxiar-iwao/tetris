@@ -7,6 +7,9 @@ class Field
     def initialize
         @mino = Mino.new(0)
         @grid = Array.new(22){ Array.new(12) }
+        @updateCount = 0
+        @downCount = 20
+        @nextDownUpdateCount = @updateCount + @downCount
         for row in 0..21 do
             for col in 0..11 do
                 if row == 0 || row == 21 || col == 0 || col == 11
@@ -15,6 +18,22 @@ class Field
                     @grid[row][col] = Grid.new(false)
                 end
             end
+        end
+    end
+
+    def update(control)
+        @updateCount += 1
+        case control
+        when "left"
+            moveLeft
+        when "right"
+            moveRight
+        when "down"
+            moveDown
+        end
+
+        if @updateCount >= @nextDownUpdateCount
+            moveDown
         end
     end
 
@@ -46,6 +65,7 @@ class Field
             mino.posRow -= 1
             setBlock
         end
+        @nextDownUpdateCount = @updateCount + @downCount
     end
 
     def setBlock
