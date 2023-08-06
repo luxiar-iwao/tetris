@@ -2,6 +2,7 @@ require './Display.rb'
 require './PlayerInput.rb'
 require './Field.rb'
 
+# ゲーム全体の統括
 class Game
     def initialize
         @display = Display.new
@@ -11,19 +12,24 @@ class Game
 
     def run
         loop do
+            # キーボードからの入力を取得
             control = @playerInput.getControl
 
+            # ESCキーを押されたら抜ける
             if control == "exit"
                 break
             end
 
+            # フィールドを更新
             @field.update(control)
           
+            #更新後のフィールドを描画
             @display.draw(@field)
 
-            sleep(0.016) # だいたい60FPSにするために16ms止める
+            # だいたい60FPSにするために16ms止める
+            sleep(0.016)
         end
-        
-        @display.close          
+
+        @display.close
     end
 end

@@ -1,5 +1,6 @@
 require 'curses'
 
+# プレイヤーからの入力を取得する
 class PlayerInput
     def initialize
         Curses.noecho # キー入力をエコー表示しない
@@ -7,6 +8,7 @@ class PlayerInput
         Curses.curs_set(0)  # カーソルを非表示にする
     end
 
+    # 入力されたキーに対応した文字列を返す
     def getControl
         case getKey
         when 27 # ESC

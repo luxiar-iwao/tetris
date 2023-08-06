@@ -1,8 +1,9 @@
 require './Minos/Mino.rb'
 
+# I字ミノ 赤色
 class MinoTypeI < Mino
-    def initialize
-        super
+    def initialize(grid)
+        super(grid)
         @color = 1
     end
     

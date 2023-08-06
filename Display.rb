@@ -2,8 +2,8 @@ require 'curses'
 require './Field.rb'
 require './Minos/Mino.rb'
 
+# 画面表示
 class Display
-
     def initialize
         Curses.init_screen 
         Curses.start_color
@@ -15,6 +15,7 @@ class Display
         @count = 0
     end
 
+    # フィールドの情報をもとに画面を描画する
     def draw(field)
         Curses.erase
         Curses.attron(Curses.color_pair(15))

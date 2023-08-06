@@ -1,8 +1,9 @@
 require './Minos/Mino.rb'
 
+# O字ミノ(スクエア) 黄色
 class MinoTypeO < Mino
-    def initialize
-        super
+    def initialize(grid)
+        super(grid)
         @color = 3
     end
     def getBlocks

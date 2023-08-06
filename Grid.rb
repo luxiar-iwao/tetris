@@ -1,3 +1,4 @@
+# テトリスの場を構成する1つのマス
 class Grid
     attr_accessor :color
     attr_reader :isWall
