@@ -1,10 +1,9 @@
-require './Mino.rb'
+require './Minos/Mino.rb'
 
-class MinoTypeS < Mino
-    attr_reader :color
+class MinoTypeZ < Mino
     def initialize
         super
-        @color = 13
+        @color = 2
     end
     
     def getBlocks
@@ -12,12 +11,12 @@ class MinoTypeS < Mino
         case @rotate % 2
         when 0
             blocks[0] = [0, 0, 0, 0]
-            blocks[1] = [0, 1, 1, 0]
-            blocks[2] = [1, 1, 0, 0]
+            blocks[1] = [1, 1, 0, 0]
+            blocks[2] = [0, 1, 1, 0]
             blocks[3] = [0, 0, 0, 0]
         when 1
-            blocks[0] = [1, 0, 0, 0]
-            blocks[1] = [1, 1, 0, 0]
+            blocks[0] = [0, 0, 1, 0]
+            blocks[1] = [0, 1, 1, 0]
             blocks[2] = [0, 1, 0, 0]
             blocks[3] = [0, 0, 0, 0]
         end

@@ -1,5 +1,5 @@
 class Mino
-    attr_accessor :posRow, :posCol, :rotate
+    attr_accessor :posRow, :posCol, :rotate, :color
 
     def initialize()
         @posRow = 0

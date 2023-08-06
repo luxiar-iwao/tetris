@@ -1,20 +1,18 @@
 require './Grid.rb'
-require './MinoTypeI.rb'
-require './MinoTypeJ.rb'
-require './MinoTypeL.rb'
-require './MinoTypeO.rb'
-require './MinoTypeS.rb'
-require './MinoTypeT.rb'
-require './MinoTypeZ.rb'
+require './Minos/MinoTypeI.rb'
+require './Minos/MinoTypeJ.rb'
+require './Minos/MinoTypeL.rb'
+require './Minos/MinoTypeO.rb'
+require './Minos/MinoTypeS.rb'
+require './Minos/MinoTypeT.rb'
+require './Minos/MinoTypeZ.rb'
 
 class Field
     attr_reader :mino
 
     def initialize
         @grid = Array.new(22){ Array.new(12) }
-        @updateCount = 0
-        @downCount = 20
-        @nextDownUpdateCount = @updateCount + @downCount
+        @downCount = 30
         for row in 0..21 do
             for col in 0..11 do
                 if row == 0 || row == 21 || col == 0 || col == 11
@@ -24,28 +22,38 @@ class Field
                 end
             end
         end
-        @nextMino = getMino
+        @next = getNext
+        @nextMino = getMino(@next)
         @mino = getFirstMino
+        @isGameOver = false
     end
 
     def update(control)
-        @updateCount += 1
-        
-        case control
-        when "left"
-            moveLeft
-        when "right"
-            moveRight
-        when "down"
-            moveDown
-        when "rotateLeft"
-            rotateLeft
-        when "rotateRight"
-            rotateRight
-        end
+        if !@isGameOver
+            case control
+            when "left"
+                moveLeft
+            when "right"
+                moveRight
+            when "rotateLeft"
+                rotateLeft
+            when "rotateRight"
+                rotateRight
+            end
 
-        if @updateCount >= @nextDownUpdateCount
-            moveDown
+            @downCount -= 1
+            if control == "down" || @downCount <= 0
+                moveDown
+            end
+        else
+            @mino.color = 244
+            for row in 1..20 do
+                for col in 1..10 do
+                    if @grid[row][col].hasBlock
+                        @grid[row][col].setBlock(244)
+                    end
+                end
+            end
         end
     end
 
@@ -85,7 +93,7 @@ class Field
             @mino.posRow -= 1
             setBlock
         end
-        @nextDownUpdateCount = @updateCount + @downCount
+        @downCount = 30
     end
 
     def rotateLeft
@@ -103,15 +111,23 @@ class Field
     end
 
     def setBlock
-        blocksPos = mino.getBlocksPos
+        blocksPos = @mino.getBlocksPos
         blocksPos.each do |blockPos|
             @grid[blockPos[0]][blockPos[1]].setBlock(mino.color)
         end
-        @mino = getNextMino
+        checkClearLine
+        getNextMino
+        if @mino.isCollision(@grid)
+            @isGameOver = true
+        end
     end
 
-    def getMino
-        case rand(7)
+    def getNext
+        rand(7)
+    end
+
+    def getMino(num)
+        case num
         when 0
             return MinoTypeI.new
         when 1
@@ -145,7 +161,34 @@ class Field
     end
 
     def getNextMino
-        @mino = @nextMino.dup
-        @nextMino = getMino
+        @mino = getMino(@next)
+        @next = getNext
+        @nextMino = getMino(@next)
     end
+
+    def checkClearLine
+        20.downto(1) do |row|
+            while isLine(row)
+                clearLine(row)
+            end
+        end
+    end
+
+    def isLine(row)
+        1.upto(10) do |col|
+            if !@grid[row][col].hasBlock
+                return false
+            end
+        end
+        return true
+    end
+    
+    def clearLine(row)
+        row.downto(2) do |workRow|
+            1.upto(10) do |col|
+                @grid[workRow][col].setBlock(@grid[workRow - 1][col].color)
+            end
+        end
+    end
+
 end

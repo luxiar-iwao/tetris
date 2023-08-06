@@ -1,7 +1,6 @@
-require './Mino.rb'
+require './Minos/Mino.rb'
 
 class MinoTypeI < Mino
-    attr_reader :color
     def initialize
         super
         @color = 1

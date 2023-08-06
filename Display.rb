@@ -1,6 +1,6 @@
 require 'curses'
 require './Field.rb'
-require './Mino.rb'
+require './Minos/Mino.rb'
 
 class Display
 
