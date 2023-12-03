@@ -2,36 +2,34 @@ require 'curses'
 
 # プレイヤーからの入力を取得する
 class PlayerInput
+    
+    ESCAPE_KEY = 27 # エスケープキーが押下された場合にgetchが返す値
+
     def initialize
         Curses.noecho # キー入力をエコー表示しない
         Curses.stdscr.nodelay = 1 # getchを非ブロッキングモードにする
         Curses.curs_set(0)  # カーソルを非表示にする
     end
 
-    # 入力されたキーに対応した文字列を返す
-    def getControl
-        case getKey
-        when 27 # ESC
-            return "exit"
+    # 入力されたキーに対応したシンボルを返す
+    def get_input_from_key
+        case Curses.getch
+        when ESCAPE_KEY
+            return :exit
         when 'a'
-            return "left"
+            return :left
         when 'd'
-            return "right"
+            return :right
         when 'w'
-            return "up"
+            return :up
         when 's'
-            return "down"
+            return :down
         when 'j'
-            return "rotateLeft"
+            return :rotate_left
         when 'k'
-            return "rotateRight"
+            return :rotate_right
         else   
-            return "none"
+            return :none
         end
-    end
-
-private
-    def getKey
-        Curses.getch
     end
 end

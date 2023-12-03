@@ -1,13 +1,13 @@
-require './Minos/Mino.rb'
+require_relative './Tetrimino.rb'
 
-# J字ミノ 青色
-class MinoTypeJ < Mino
-    def initialize(grid)
-        super(grid)
-        @color = 4
+# J字テトリミノ 青色
+class TetriminoTypeJ < Tetrimino
+    def initialize(field)
+        super(field)
+        @color = :blue
     end
-    
-    def getBlocks
+
+    def get_blocks
         blocks = Array.new(4)
         case @rotate % 4
         when 0
