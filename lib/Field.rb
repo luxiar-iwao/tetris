@@ -64,7 +64,7 @@ class Field
     def line_cells(y)
         cells = Array.new
         @grid.each do |cell|
-            if cell.pos_y == y
+            if !cell.is_wall && cell.pos_y == y
                 cells.push(cell)
             end
         end

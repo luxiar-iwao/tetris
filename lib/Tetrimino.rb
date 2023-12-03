@@ -126,7 +126,7 @@ class Tetrimino
 
     # 着地
     # フィールド上のテトリミノの位置のセルにブロックをセットして着地フラグを立てる
-    # フィールドのライン消去メソッドを呼ぶ
+    # フィールドのライン消去判定メソッドを呼ぶ
     def landing
         blocks.each_with_index do |sub_array, index_y|
             sub_array.each_with_index do |element, index_x|

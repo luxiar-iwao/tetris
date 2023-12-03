@@ -1,6 +1,6 @@
 # テトリスのフィールドを構成するセル
 class Cell
-    attr_reader :pos_x, :pos_y, :has_block, :color
+    attr_reader :pos_x, :pos_y, :is_wall, :has_block, :color
 
     def initialize(x, y, is_wall)
         @pos_x = x
