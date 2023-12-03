@@ -15,27 +15,27 @@ class Game
         @player_input = PlayerInput.new
         @field = Field.new
         @display = Display.new
-        @tetrimino = get_tetrimino
+        @tetrimino = random_tetrimino
     end
 
     def run
         loop do
             # キーボードからの入力を取得
-            input = @player_input.get_input_from_key
+            input = @player_input.from_key
 
             # ESCキーを押されたらループを抜ける
             if input == :exit
                 break
             end
 
-            # ゲームオーバーフラグの判定
-            if @tetrimino.is_game_over
-                @field.game_over
-                @tetrimino.game_over
+            # ゲームオーバーの判定
+            if game_over?
+                @field.change_blocks_to_gray
+                @tetrimino.change_to_gray
             else
                 # テトリミノが着地していたら初期化
-                if @tetrimino.is_landing
-                    @tetrimino = get_tetrimino
+                if @tetrimino.landed
+                    @tetrimino = random_tetrimino
                 end
 
                 # テトリミノの更新
@@ -50,22 +50,30 @@ class Game
         end
     end
 
-    def get_tetrimino
+    private
+
+    # ゲームオーバーの判定
+    def game_over?
+        @tetrimino.stack
+    end
+
+    # 7種類のテトリミノからランダムで選び新規オブジェクトを返す
+    def random_tetrimino
         case rand(7)
         when 0
-            return TetriminoTypeI.new(@field)
+            TetriminoTypeI.new(@field)
         when 1
-            return TetriminoTypeO.new(@field)
+            TetriminoTypeO.new(@field)
         when 2
-            return TetriminoTypeT.new(@field)
+            TetriminoTypeT.new(@field)
         when 3
-            return TetriminoTypeJ.new(@field)
+            TetriminoTypeJ.new(@field)
         when 4
-            return TetriminoTypeL.new(@field)
+            TetriminoTypeL.new(@field)
         when 5
-            return TetriminoTypeS.new(@field)
+            TetriminoTypeS.new(@field)
         when 6
-            return TetriminoTypeZ.new(@field)
+            TetriminoTypeZ.new(@field)
         end
     end
 end

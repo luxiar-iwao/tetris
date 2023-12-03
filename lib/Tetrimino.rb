@@ -2,7 +2,7 @@ require_relative './Field.rb'
 
 # テトリミノの基底クラス
 class Tetrimino
-    attr_accessor :pos_y, :pos_x, :color, :is_landing, :is_game_over
+    attr_accessor :pos_y, :pos_x, :color, :landed, :stack
 
     START_POS_X = 4
     START_POS_Y = 0
@@ -13,10 +13,10 @@ class Tetrimino
         @pos_x = START_POS_X
         @pos_y = START_POS_Y
         @color = :none
-        @is_landing = false
+        @landed = false
         @rotate = 0
         @fall_count = FALL_COUNT_RESET_VALUE
-        @is_game_over = is_collision
+        @stack = collision? # 初期化時に衝突していたらスタック(ゲームオーバー)フラグを立てる
     end
 
     # フレーム毎の更新
@@ -27,8 +27,8 @@ class Tetrimino
         fall(input)
     end
 
-    # オーバーライド用ブロック取得メソッド
-    def get_blocks
+    # ブロック取得メソッド(派生クラスでオーバーライドされる)
+    def blocks
         blocks = Array.new(4)
         blocks[0] = [0, 0, 0, 0]
         blocks[1] = [0, 0, 0, 0]
@@ -37,19 +37,18 @@ class Tetrimino
         return blocks
     end
 
-    # ゲームオーバー時に呼ばれる
     # テトリミノの色をグレーにする
-    def game_over
+    def change_to_gray
         @color = :gray
     end
 
     private
 
     # テトリミノがフィールドのブロックに重なっているか
-    def is_collision
-        get_blocks.each_with_index do |sub_array, index_y|
+    def collision?
+        blocks.each_with_index do |sub_array, index_y|
             sub_array.each_with_index do |element, index_x|
-                if element != 0 && @field.get_cell(@pos_x + index_x, @pos_y + index_y).has_block
+                if element != 0 && @field.cell(@pos_x + index_x, @pos_y + index_y).has_block
                     return true
                 end
             end
@@ -61,81 +60,82 @@ class Tetrimino
     def movement(input)
         case input
         when :left
-            move_left_if_possible
+            try_move_left
         when :right
-            move_right_if_possible
+            try_move_right
         when :rotate_left
-            rotate_left_if_possible
+            try_rotate_left
         when :rotate_right
-            rotate_right_if_possible
+            try_rotate_right
         end
     end
 
     # 落下処理
     # このメソッドが呼ばれる毎に落下カウントを1減算する
     # 落下キーが入力されたか、落下カウントが0以下になったら1セル分落下する
-    # 1マス落下したら落下カウントをリセットする
+    # 落下したら落下カウントをリセットする
     def fall(input)
         @fall_count -= 1
         if input == :down || @fall_count <= 0
-            move_down_if_possible
+            try_move_down
             @fall_count = FALL_COUNT_RESET_VALUE
         end
     end
 
     # 可能であれば左に移動する
-    def move_left_if_possible
+    def try_move_left
         @pos_x -= 1
-        if is_collision
+        if collision?
             @pos_x += 1
         end
     end
 
     # 可能であれば右に移動する
-    def move_right_if_possible
+    def try_move_right
         @pos_x += 1
-        if is_collision
+        if collision?
             @pos_x -= 1
         end
     end
 
     # 可能であれば左に回転する
-    def rotate_left_if_possible
+    def try_rotate_left
         @rotate -= 1
-        if is_collision
+        if collision?
             @rotate += 1
         end
     end
 
     # 可能であれば右に回転する
-    def rotate_right_if_possible
+    def try_rotate_right
         @rotate += 1
-        if is_collision
+        if collision?
             @rotate -= 1
         end
     end
 
     # 可能であれば下に落下する
     # もし着地したら着地メソッドを呼ぶ
-    def move_down_if_possible
+    def try_move_down
         @pos_y += 1
-        if is_collision
+        if collision?
             @pos_y -= 1
             landing
         end
     end
 
     # 着地
-    # フィールドのテトリミノの位置のセルにブロックをセットする
+    # フィールド上のテトリミノの位置のセルにブロックをセットして着地フラグを立てる
+    # フィールドのライン消去メソッドを呼ぶ
     def landing
-        get_blocks.each_with_index do |sub_array, index_y|
+        blocks.each_with_index do |sub_array, index_y|
             sub_array.each_with_index do |element, index_x|
                 if element != 0
-                    @field.get_cell(@pos_x + index_x, @pos_y + index_y).set_block(@color)
+                    @field.cell(@pos_x + index_x, @pos_y + index_y).set_block(@color)
                 end
             end
         end
+        @landed = true
         @field.check_and_clear_lines
-        @is_landing = true
     end
 end

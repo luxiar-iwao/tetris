@@ -12,24 +12,24 @@ class PlayerInput
     end
 
     # 入力されたキーに対応したシンボルを返す
-    def get_input_from_key
+    def from_key
         case Curses.getch
         when ESCAPE_KEY
-            return :exit
+            :exit
         when 'a'
-            return :left
+            :left
         when 'd'
-            return :right
+            :right
         when 'w'
-            return :up
+            :up
         when 's'
-            return :down
+            :down
         when 'j'
-            return :rotate_left
+            :rotate_left
         when 'k'
-            return :rotate_right
+            :rotate_right
         else   
-            return :none
+            :none
         end
     end
 end

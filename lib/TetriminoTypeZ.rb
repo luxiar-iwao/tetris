@@ -7,7 +7,8 @@ class TetriminoTypeZ < Tetrimino
         @color = :green
     end
 
-    def get_blocks
+    # ブロック取得メソッド
+    def blocks
         blocks = Array.new(4)
         case @rotate % 2
         when 0

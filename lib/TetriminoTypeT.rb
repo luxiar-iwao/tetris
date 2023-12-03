@@ -7,7 +7,8 @@ class TetriminoTypeT < Tetrimino
         @color = :paleBlue
     end
 
-    def get_blocks
+    # ブロック取得メソッド
+    def blocks
         blocks = Array.new(4)
         case @rotate % 4
         when 0
