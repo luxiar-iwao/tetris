@@ -16,7 +16,8 @@ class Tetrimino
         @landed = false
         @rotate = 0
         @fall_count = FALL_COUNT_RESET_VALUE
-        @stack = collision? # 初期化時に衝突していたらスタック(ゲームオーバー)フラグを立てる
+        # 初期化時の時点で衝突していたらスタックフラグを立てる
+        @stack = collision?
     end
 
     # フレーム毎の更新
