@@ -20,7 +20,11 @@ class Field
         @grid = Array.new
         GRID_WIDTH_RANGE.each do |x|
             GRID_HEIGHT_RANGE.each do |y|
-                is_wall = x == MINIMUM_GRID_WIDTH || y == MINIMUM_GRID_HEIGHT || x == MAX_GRID_WIDTH || y == MAX_GRID_HEIGHT 
+                is_wall =
+                    x == MINIMUM_GRID_WIDTH ||
+                    y == MINIMUM_GRID_HEIGHT ||
+                    x == MAX_GRID_WIDTH ||
+                    y == MAX_GRID_HEIGHT
                 @grid.push(Cell.new(x, y, is_wall))
             end
         end
