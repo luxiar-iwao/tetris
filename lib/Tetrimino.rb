@@ -6,6 +6,7 @@ class Tetrimino
 
     START_POS_X = 4
     START_POS_Y = 0
+    FALL_COUNT_RESET_VALUE = 50
 
     def initialize(field)
         @field = field
@@ -14,8 +15,7 @@ class Tetrimino
         @color = :none
         @is_landing = false
         @rotate = 0
-        @fall_count_reset_value = 50
-        @fall_count = @fall_count_reset_value
+        @fall_count = FALL_COUNT_RESET_VALUE
         @is_game_over = is_collision
     end
 
@@ -79,7 +79,7 @@ class Tetrimino
         @fall_count -= 1
         if input == :down || @fall_count <= 0
             move_down_if_possible
-            @fall_count = @fall_count_reset_value
+            @fall_count = FALL_COUNT_RESET_VALUE
         end
     end
 
