@@ -83,11 +83,11 @@ class Field
 
     # 指定されたy軸のブロックを消去し、上段のブロックを1段ずつ下にずらす
     def clear_line(y)
-        y.downto(MINIMUM_GRID_INSIDE_HEIGHT + 1) do |work_y|
+        y.downto(MINIMUM_GRID_INSIDE_HEIGHT) do |work_y|
             line_cells(work_y).each do |cell|
                 cell.remove_block
                 one_up_cell = cell(cell.pos_x, cell.pos_y - 1)
-                if one_up_cell.has_block
+                if !one_up_cell.is_wall && one_up_cell.has_block
                     cell.set_block(one_up_cell.color)
                 end
             end
