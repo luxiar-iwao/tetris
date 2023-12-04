@@ -1,4 +1,4 @@
-require_relative './lib/Game.rb'
+require_relative 'lib/Game'
 
 game = Game.new
 game.run

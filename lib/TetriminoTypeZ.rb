@@ -1,4 +1,4 @@
-require_relative './Tetrimino.rb'
+require_relative 'Tetrimino'
 
 # Z字テトリミノ 緑色
 class TetriminoTypeZ < Tetrimino

@@ -1,4 +1,4 @@
-require_relative './Cell.rb'
+require_relative 'Cell'
 
 # テトリスのフィールド
 class Field

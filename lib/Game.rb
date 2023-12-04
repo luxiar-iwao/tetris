@@ -1,13 +1,13 @@
-require_relative './PlayerInput.rb'
-require_relative './Field.rb'
-require_relative './Display.rb'
-require_relative './TetriminoTypeI.rb'
-require_relative './TetriminoTypeO.rb'
-require_relative './TetriminoTypeT.rb'
-require_relative './TetriminoTypeJ.rb'
-require_relative './TetriminoTypeL.rb'
-require_relative './TetriminoTypeS.rb'
-require_relative './TetriminoTypeZ.rb'
+require_relative 'PlayerInput'
+require_relative 'Field'
+require_relative 'Display'
+require_relative 'TetriminoTypeI'
+require_relative 'TetriminoTypeO'
+require_relative 'TetriminoTypeT'
+require_relative 'TetriminoTypeJ'
+require_relative 'TetriminoTypeL'
+require_relative 'TetriminoTypeS'
+require_relative 'TetriminoTypeZ'
 
 # ゲーム全体の統括
 class Game

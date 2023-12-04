@@ -1,4 +1,4 @@
-require_relative './Field.rb'
+require_relative 'Field'
 
 # テトリミノの基底クラス
 class Tetrimino
