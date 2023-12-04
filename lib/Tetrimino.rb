@@ -49,7 +49,7 @@ class Tetrimino
     def collision?
         blocks.each_with_index do |sub_array, index_y|
             sub_array.each_with_index do |element, index_x|
-                if element != 0 && @field.cell(@pos_x + index_x, @pos_y + index_y).has_block
+                if element != 0 && @field.cell(@pos_x + index_x, @pos_y + index_y)&.has_block
                     return true
                 end
             end
