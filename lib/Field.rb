@@ -58,11 +58,11 @@ class Field
 
   # 消去可能な行を調べて消去する
   def check_and_clear_lines
-    # 最下段から調べていく
+    # 最下段から最上段までのループ
     GRID_INSIDE_HEIGHT_RANGE.reverse_each do |y|
       # チェック対象のy軸が繋がったラインになっているかを調べて、なっていれば消去する
       # 消した後に上段のブロックを1段ずつ下にずらすので、
-      # ずらし後に繋がったラインがチェック対象のy軸来なくなるまでwhile文で繰り返す
+      # ずらし後に繋がったラインが来なくなるまでwhile文で繰り返す
       while line_connected?(y)
         clear_line(y)
       end

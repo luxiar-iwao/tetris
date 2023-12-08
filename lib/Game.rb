@@ -19,6 +19,7 @@ class Game
   end
 
   def run
+    #フレームのループ
     loop do
       # キーボードからの入力を取得
       input = @player_input.from_key
