@@ -129,17 +129,18 @@ class Tetrimino
   end
 
   # 着地
-  # フィールド上のテトリミノの位置のセルにブロックをセットして着地フラグを立てる
-  # フィールドのライン消去判定メソッドを呼ぶ
   def landing
+    # フィールド上のテトリミノの位置のセルにブロックをセットする
     blocks.each_with_index do |sub_array, index_y|
       sub_array.each_with_index do |element, index_x|
         if element != 0
-          @field.cell_at(@pos_x + index_x, @pos_y + index_y).set_block(@color)
+          @field.cell(@pos_x + index_x, @pos_y + index_y).set_block(@color)
         end
       end
     end
+    # 着地フラグを立てる
     @landed = true
+    # フィールドのライン消去判定メソッドを呼ぶ
     @field.check_and_clear_lines
   end
 end
