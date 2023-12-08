@@ -38,9 +38,9 @@ class Tetrimino
     return blocks
   end
 
-  # テトリミノの色をグレーにする
-  def change_to_gray
-    @color = :gray
+  # テトリミノの色を変更する
+  def change_color(color)
+    @color = color
   end
 
   private
@@ -49,8 +49,11 @@ class Tetrimino
   def collision?
     blocks.each_with_index do |sub_array, index_y|
       sub_array.each_with_index do |element, index_x|
-        if element != 0 && @field.cell(@pos_x + index_x, @pos_y + index_y)&.has_block
-          return true
+        if element != 0 
+          cell = @field.cell_at(@pos_x + index_x, @pos_y + index_y)
+          if cell.nil? || cell.has_block
+            return true
+          end
         end
       end
     end
@@ -132,7 +135,7 @@ class Tetrimino
     blocks.each_with_index do |sub_array, index_y|
       sub_array.each_with_index do |element, index_x|
         if element != 0
-          @field.cell(@pos_x + index_x, @pos_y + index_y).set_block(@color)
+          @field.cell_at(@pos_x + index_x, @pos_y + index_y).set_block(@color)
         end
       end
     end

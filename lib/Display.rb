@@ -39,11 +39,15 @@ class Display
   # フィールドの描画
   def draw_field(field)
     field.grid.each do |cell|
-      color_code = symbol_to_color_code(cell.color)
-      if color_code != 0
-        Curses.attron(Curses.color_pair(color_code))
+      # カラーペア番号を取得する
+      color_number = symbol_to_color_number(cell.color)
+      if color_number != 0
+        # カラーペアを適用する
+        Curses.attron(Curses.color_pair(color_number))
+        # カーソル位置を設定する
         # x軸の値をそのまま使うと詰まった様な印象の画面になるので2倍する
         Curses.setpos(cell.pos_y, cell.pos_x * 2)
+        # ブロックを描画する
         Curses.addstr(SQUARE)
       end
     end
@@ -51,21 +55,26 @@ class Display
 
   # テトリミノの描画
   def draw_tetrimino(tetrimino)
-    color_code = symbol_to_color_code(tetrimino.color)
-    Curses.attron(Curses.color_pair(color_code))
+    # カラーペア番号を取得する
+    color_number = symbol_to_color_number(tetrimino.color)
+    # カラーペアを適用する
+    Curses.attron(Curses.color_pair(color_number))
+    # テトリミノのブロックを描画する多重ル多重ループ
     tetrimino.blocks.each_with_index do |sub_array, index_y|
       sub_array.each_with_index do |element, index_x|
         if element != 0
+          # カーソル位置を設定する
           # x軸の値をそのまま使うと詰まった様な印象の画面になるので2倍する
           Curses.setpos(tetrimino.pos_y + index_y, (tetrimino.pos_x + index_x) * 2)
+          # ブロックを描画する
           Curses.addstr(SQUARE)
         end
       end
     end
   end
 
-  # 色シンボルからカラーコードを取得する
-  def symbol_to_color_code(color_symbol)
+  # 色シンボルからカラーペア番号を取得する
+  def symbol_to_color_number(color_symbol)
     case color_symbol
     when :red
       1

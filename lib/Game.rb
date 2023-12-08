@@ -30,8 +30,8 @@ class Game
 
       # ゲームオーバーの判定
       if game_over?
-        @field.change_blocks_to_gray
-        @tetrimino.change_to_gray
+        @field.change_all_blocks_color(:gray)
+        @tetrimino.change_color(:gray)
       else
         # テトリミノが着地していたら初期化
         if @tetrimino.landed
