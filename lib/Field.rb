@@ -47,15 +47,6 @@ class Field
     return nil
   end
 
-  # フィールド上の全てのブロックの色を変更する
-  def change_all_blocks_color(color)
-    @grid.each do |cell|
-      if cell.has_block
-        cell.set_block(color)
-      end
-    end
-  end
-
   # 消去可能な行を調べて消去する
   def check_and_clear_lines
     # 最下段から最上段までのループ
@@ -65,6 +56,15 @@ class Field
       # ずらし後に繋がったラインが来なくなるまでwhile文で繰り返す
       while line_connected?(y)
         clear_line(y)
+      end
+    end
+  end
+
+  # フィールド上の全てのブロックの色を変更する
+  def change_all_blocks_color(color)
+    @grid.each do |cell|
+      if cell.has_block
+        cell.set_block(color)
       end
     end
   end
