@@ -60,9 +60,9 @@ class Field
   def check_and_clear_lines
     # 最下段から調べていく
     GRID_INSIDE_HEIGHT_RANGE.reverse_each do |y|
-      # 指定されたy軸が繋がったラインになっているかを調べる
+      # チェック対象のy軸が繋がったラインになっているかを調べて、なっていれば消去する
       # 消した後に上段のブロックを1段ずつ下にずらすので、
-      # 指定されたy軸に繋がったラインがなくなるまでwhile文で繰り返す
+      # ずらし後に繋がったラインがチェック対象のy軸来なくなるまでwhile文で繰り返す
       while line_connected?(y)
         clear_line(y)
       end
@@ -100,10 +100,10 @@ class Field
       line_cells(work_y).each do |cell|
         # セルのブロックを消去する
         cell.remove_block
-        # 1段下のセルを取得する
+        # 1段上のセルを取得する
         one_up_cell = cell_at(cell.pos_x, cell.pos_y - 1)
-        # 1段下のセルにブロックがあれば、
-        # そのセルのブロックを1段上のセルに移動する
+        # 1段上のセルにブロックがあれば、
+        # そのブロックをセルに移動する
         if !one_up_cell.is_wall && one_up_cell.has_block
           cell.set_block(one_up_cell.color)
         end
