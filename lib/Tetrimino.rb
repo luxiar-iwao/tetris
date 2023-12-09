@@ -2,7 +2,7 @@ require_relative 'Field'
 
 # テトリミノの基底クラス
 class Tetrimino
-  attr_accessor :pos_y, :pos_x, :color, :landed, :stack
+  attr_reader :pos_y, :pos_x, :color, :landed, :stack
 
   START_POS_X = 4
   START_POS_Y = 0
