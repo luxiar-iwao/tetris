@@ -64,7 +64,7 @@ class Display
     color_number = symbol_to_color_number(tetrimino.color)
     # カラーペアを適用する
     Curses.attron(Curses.color_pair(color_number))
-    # テトリミノのブロックを描画する多重ル多重ループ
+    # テトリミノのブロックを描画する二重ループ
     tetrimino.blocks.each_with_index do |sub_array, index_y|
       sub_array.each_with_index do |element, index_x|
         if element != 0
