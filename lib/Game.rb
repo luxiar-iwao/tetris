@@ -49,6 +49,8 @@ class Game
       # だいたい60FPSにするために16ms止める
       sleep(0.016)
     end
+    # cursesによる画面を閉じる
+    @display.close
   end
 
   private

@@ -34,6 +34,11 @@ class Display
     Curses.refresh
   end
 
+  # cursesによる画面を閉じる
+  def close
+    Curses.close_screen
+  end
+
   private
 
   # フィールドの描画
@@ -97,10 +102,5 @@ class Display
     else
       0
     end
-  end
-
-  # cursesによる画面を閉じる
-  def close
-    Curses.close_screen
   end
 end
