@@ -3,12 +3,16 @@ require 'curses'
 # プレイヤーからの入力を取得する
 class PlayerInput
   
-  ESCAPE_KEY = 27 # エスケープキーが押下された場合にgetchが返す値
+  # エスケープキーが押下された場合にCurses.getchが返す値
+  ESCAPE_KEY = 27
 
   def initialize
-    Curses.noecho # キー入力をエコー表示しない
-    Curses.stdscr.nodelay = 1 # getchを非ブロッキングモードにする
-    Curses.curs_set(0)  # カーソルを非表示にする
+    # キー入力をエコー表示しない
+    Curses.noecho
+    # getchを非ブロッキングモードにする
+    Curses.stdscr.nodelay = 1
+    # カーソルを非表示にする
+    Curses.curs_set(0)
   end
 
   # 入力されたキーに対応したシンボルを返す
