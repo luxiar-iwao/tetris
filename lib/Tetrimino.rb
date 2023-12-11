@@ -35,7 +35,7 @@ class Tetrimino
     blocks[1] = [0, 0, 0, 0]
     blocks[2] = [0, 0, 0, 0]
     blocks[3] = [0, 0, 0, 0]
-    return blocks
+    blocks
   end
 
   # テトリミノの色を変更する
@@ -57,7 +57,7 @@ class Tetrimino
         end
       end
     end
-    return false
+    false
   end
 
   # 移動操作

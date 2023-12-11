@@ -44,7 +44,7 @@ class Field
         return cell
       end
     end
-    return nil
+    nil
   end
 
   # 消去可能な行を調べて消去する
@@ -79,7 +79,7 @@ class Field
         cells.push(cell)
       end
     end
-    return cells
+    cells
   end
 
   # 指定されたy軸が繋がったラインになっているかを返す
@@ -89,7 +89,7 @@ class Field
         return false
       end
     end
-    return true
+    true
   end
 
   # 指定されたy軸のブロックを消去し、上段のブロックを1段ずつ下にずらす

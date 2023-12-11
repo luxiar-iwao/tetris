@@ -22,6 +22,6 @@ class TetriminoTypeI < Tetrimino
       blocks[2] = [0, 0, 1, 0]
       blocks[3] = [0, 0, 1, 0]
     end
-    return blocks
+    blocks
   end
 end

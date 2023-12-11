@@ -14,6 +14,6 @@ class TetriminoTypeO < Tetrimino
     blocks[1] = [0, 1, 1, 0]
     blocks[2] = [0, 1, 1, 0]
     blocks[3] = [0, 0, 0, 0]
-    return blocks
+    blocks
   end
 end
