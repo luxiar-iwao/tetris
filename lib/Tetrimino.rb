@@ -13,6 +13,7 @@ class Tetrimino
     @pos_x = START_POS_X
     @pos_y = START_POS_Y
     @color = :none
+    @blocks = Array.new(4)
     @landed = false
     @rotate = 0
     @fall_count = FALL_COUNT_RESET_VALUE
@@ -30,12 +31,11 @@ class Tetrimino
 
   # ブロック取得メソッド(派生クラスでオーバーライドされる)
   def blocks
-    blocks = Array.new(4)
-    blocks[0] = [0, 0, 0, 0]
-    blocks[1] = [0, 0, 0, 0]
-    blocks[2] = [0, 0, 0, 0]
-    blocks[3] = [0, 0, 0, 0]
-    blocks
+    @blocks[0] = [0, 0, 0, 0]
+    @blocks[1] = [0, 0, 0, 0]
+    @blocks[2] = [0, 0, 0, 0]
+    @blocks[3] = [0, 0, 0, 0]
+    @blocks
   end
 
   # テトリミノの色を変更する
