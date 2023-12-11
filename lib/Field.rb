@@ -64,7 +64,7 @@ class Field
   # フィールド上の全てのブロックの色を変更する
   def change_all_blocks_color(color)
     @grid.each do |cell|
-      if cell.has_block
+      if !cell.is_wall && cell.has_block
         cell.set_block(color)
       end
     end
