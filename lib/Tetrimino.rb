@@ -6,7 +6,7 @@ class Tetrimino
 
   START_POS_X = 4
   START_POS_Y = 0
-  FALL_COUNT_RESET_VALUE = 50
+  FALL_COUNT_INITIAL_VALUE = 50
 
   def initialize(field)
     @field = field
@@ -16,7 +16,7 @@ class Tetrimino
     @blocks = Array.new(4)
     @landed = false
     @rotate = 0
-    @fall_count = FALL_COUNT_RESET_VALUE
+    @fall_count = FALL_COUNT_INITIAL_VALUE
     # 初期化時の時点で衝突していたらスタックフラグを立てる
     @stack = collision?
   end
@@ -83,7 +83,7 @@ class Tetrimino
     @fall_count -= 1
     if input == :down || @fall_count <= 0
       try_move_down
-      @fall_count = FALL_COUNT_RESET_VALUE
+      @fall_count = FALL_COUNT_INITIAL_VALUE
     end
   end
 
