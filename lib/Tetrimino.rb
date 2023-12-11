@@ -51,7 +51,7 @@ class Tetrimino
       sub_array.each_with_index do |element, index_x|
         if element != 0 
           cell = @field.cell_at(@pos_x + index_x, @pos_y + index_y)
-          # cellがnilであるということはテトリミノがフィールドのグリッド外にはみ出しているので衝突扱いにする
+          # cellがnil ⇒ フィールドのグリッド外にはみ出しているので衝突扱いにする
           if cell.nil? || cell.has_block
             return true
           end
