@@ -67,7 +67,7 @@ class Display
   # ブロックを描画する
   def draw_block(x, y, color)
     # カラーペア番号を取得する
-    color_number = symbol_to_color_number(color)
+    color_number = color_number_from_symbol(color)
     return if color_number == 0
     # カラーペアを適用する
     Curses.attron(Curses.color_pair(color_number))
@@ -79,7 +79,7 @@ class Display
   end
 
   # 色シンボルからカラーペア番号を取得する
-  def symbol_to_color_number(color_symbol)
+  def color_number_from_symbol(color_symbol)
     case color_symbol
     when :red
       1
