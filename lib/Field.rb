@@ -38,6 +38,7 @@ class Field
   end
   
   # 指定された座標のセルを返す
+  # 指定された座標のセルが無い場合はnilを返す
   def cell_at(x, y)
     @grid.each do |cell|
       if cell.pos_x == x && cell.pos_y == y
